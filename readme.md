@@ -18,3 +18,15 @@ It integrates some commonly used methods.
 Such as the general cache static operation class, the commonly used Wpf ValueConverters, the built-in delegate type, the general reflective loading dll operation class, Wpf's ViewModel, Command, Navigation, Messenger, some commonly used UserControls (bindable PasswordBox, PlaceHolderTextBox, HighlightTextBlock, etc.), and some commonly used background data binding methods of Wpf
 Others are some general extension method classes
 
+Orignal Source:
+[SharoBoxes](https://github.com/dumbnessrf/SharpBoxes/tree/main)
+
+其他相关工具、扩展
+Other Toolkit:
+[SharpBoxes.Cuts](https://marketplace.visualstudio.com/items?itemName=dumbnessrf.SharpBoxes)
+其中提供了许多cSharp、xaml有用的代码片段，如OnProperty tyChanged的完整属性语句，Task.Run（）=>{}）的自动环绕；…
+which provided lots of csharp、xaml useful code snippets Like full property statement with OnPropertyChanged, auto surround with Task.Run(()=>{ });...
+# Install
+```shell
+Install-Package SharoBoxes
+```

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpBoxes", "SharpBoxes.csproj", "{6ED0019D-222A-4E66-8AB9-FA84C91A8ACF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples", "..\Samples\Samples.csproj", "{170B6290-0D44-4483-8C0F-5AA2ECF3A3BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6ED0019D-222A-4E66-8AB9-FA84C91A8ACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ED0019D-222A-4E66-8AB9-FA84C91A8ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ED0019D-222A-4E66-8AB9-FA84C91A8ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ED0019D-222A-4E66-8AB9-FA84C91A8ACF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{170B6290-0D44-4483-8C0F-5AA2ECF3A3BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{170B6290-0D44-4483-8C0F-5AA2ECF3A3BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{170B6290-0D44-4483-8C0F-5AA2ECF3A3BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{170B6290-0D44-4483-8C0F-5AA2ECF3A3BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C5C835EE-AD6F-4EA3-8D75-014B2CEAE4EF}
+	EndGlobalSection
+EndGlobal

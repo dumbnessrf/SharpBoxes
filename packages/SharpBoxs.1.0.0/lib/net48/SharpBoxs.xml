@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SharpBoxs</name>
+    </assembly>
+    <members>
+        <member name="T:Utils.Cache.CacheHelper">
+            <summary>
+            WPF的<see cref="N:System.Windows.Media"/>及其子类如<see cref="T:System.Windows.Media.Imaging.BitmapSource"/>等对象在使用完毕后，由于没有实现<see cref="T:System.IDisposable"/>接口，具体待定
+            </summary>
+        </member>
+        <member name="M:Utils.NumericHelpers.ToIntUp(System.Double)">
+            <summary>
+            向上取整
+            </summary>
+            <param name="d"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Utils.NumericHelpers.ToIntDown(System.Double)">
+            <summary>
+            向下取整
+            </summary>
+            <param name="d"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Utils.NumericHelpers.ToIntUp(System.Single)">
+            <summary>
+            向上取整
+            </summary>
+            <param name="d"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Utils.NumericHelpers.ToIntDown(System.Single)">
+            <summary>
+            向下取整
+            </summary>
+            <param name="d"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

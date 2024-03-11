@@ -1,0 +1,88 @@
+﻿<Window
+    x:Class="SharpBoxes.WPFHelpers.Dialogs.InputDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SharpBoxes.WPFHelpers.Dialogs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="{Binding Caption}"
+    Width="400"
+    Height="200"
+    d:DataContext="{d:DesignInstance Type=local:InputDialogViewModel}"
+    d:Title="Title"
+    Loaded="Window_Loaded"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <local:InputTypeToVisibilityConverter x:Key="InputTypeToVisibilityConverter" />
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Margin" Value="5,0,5,5" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Margin" Value="5,5,5,0" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Width" Value="100" />
+        </Style>
+    </Window.Resources>
+    <DockPanel LastChildFill="False">
+        <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
+            <TextBlock
+                d:Text="Description"
+                DockPanel.Dock="Top"
+                Text="{Binding Description}"
+                TextWrapping="WrapWithOverflow" />
+            <TextBox
+                d:Text="Input"
+                DockPanel.Dock="Top"
+                Text="{Binding Input, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+
+        <!--<TextBox
+            d:Text="Input"
+            DockPanel.Dock="Top"
+            Text="{Binding IntValue, UpdateSourceTrigger=PropertyChanged}"
+            Visibility="{Binding InputType, Converter={StaticResource InputTypeToVisibilityConverter}, ConverterParameter={x:Static local:EInputType.Int}}" />
+
+        <TextBox
+            d:Text="Input"
+            DockPanel.Dock="Top"
+            Text="{Binding FloatValue, UpdateSourceTrigger=PropertyChanged}"
+            Visibility="{Binding InputType, Converter={StaticResource InputTypeToVisibilityConverter}, ConverterParameter={x:Static local:EInputType.Float}}" />
+
+        <TextBox
+            d:Text="Input"
+            DockPanel.Dock="Top"
+            Text="{Binding DoubleValue, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+            Visibility="{Binding InputType, Converter={StaticResource InputTypeToVisibilityConverter}, ConverterParameter={x:Static local:EInputType.Double}}" />-->
+        <StackPanel
+            HorizontalAlignment="Right"
+            Panel.ZIndex="99"
+            DockPanel.Dock="Bottom"
+            Orientation="Horizontal">
+            <Button
+                x:Name="okButton"
+                Margin="0,5"
+                Click="okButton_Click"
+                Content="OK" />
+            <Button
+                x:Name="cancelButton"
+                Margin="5,5"
+                Click="cancelButton_Click"
+                Content="Cancel" />
+        </StackPanel>
+        <ListBox
+            BorderThickness="0"
+            DockPanel.Dock="Top"
+            Foreground="Red"
+            ItemsSource="{Binding ErrorCollections}" />
+
+    </DockPanel>
+
+</Window>

@@ -4,6 +4,9 @@
 [![en](https://img.shields.io/badge/lang-en-red.svg)](readme.en.md)
 [![ch](https://img.shields.io/badge/lang-zh-yellow.svg)](readme.zh.md)
 
+Nuget下载
+Nuget Download:
+[SharpBoxes](https://www.nuget.org/packages/SharpBoxes)
 
 # NetHelper
 集成了一些常用的方法；

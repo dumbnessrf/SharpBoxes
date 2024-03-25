@@ -45,6 +45,21 @@ namespace SharpBoxes
             return str;
         }
 
+        public static double ToDouble(this string str)
+        {
+            return Convert.ToDouble(str);
+        }
+
+        public static int ToInt(this string str)
+        {
+            return Convert.ToInt32(str);
+        }
+
+        public static float ToFloat(this string str)
+        {
+            return Convert.ToSingle(str);
+        }
+
         #endregion
     }
 

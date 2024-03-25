@@ -56,6 +56,12 @@
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\BrushToColorConverter.cs" />
     <Compile Include="Converters\ColorToBrushConverter.cs" />
+    <Compile Include="CSV\CsvDataBase.cs" />
+    <Compile Include="CSV\CsvDataBlank.cs" />
+    <Compile Include="CSV\CsvDataCustom.cs" />
+    <Compile Include="CSV\CsvDataNormal.cs" />
+    <Compile Include="CSV\CsvOprHelper.cs" />
+    <Compile Include="CSV\CsvServiceExtensions.cs" />
     <Compile Include="MarkupExtensions\EnumBindingMarkupExtensions.cs" />
     <Compile Include="Converters\StringToSolidBrushConverter.cs" />
     <Compile Include="DataStruct\Helpers.cs" />
@@ -133,7 +139,6 @@
     <Content Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="img.png" />
     <Content Include="readme.en.md" />
     <Content Include="readme.zh.md" />
   </ItemGroup>

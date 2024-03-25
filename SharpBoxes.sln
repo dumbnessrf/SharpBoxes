@@ -5,7 +5,8 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpBoxes", "SharpBoxes.csproj", "{6ED0019D-222A-4E66-8AB9-FA84C91A8ACF}"
 EndProject
-
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples", "..\Samples\Samples.csproj", "{170B6290-0D44-4483-8C0F-5AA2ECF3A3BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

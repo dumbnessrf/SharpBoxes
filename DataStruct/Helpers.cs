@@ -19,7 +19,7 @@ namespace SharpBoxes.DataStruct
         /// <typeparam name="TValue">值的类型</typeparam>
         /// <param name="dict">字典</param>
         /// <returns>Json字符串</returns>
-        public static string DictToJson<TKey, TValue>(Dictionary<TKey, TValue> dict)
+        public static string DictToJson<TKey, TValue>(this Dictionary<TKey, TValue> dict)
         {
             return JsonConvert.SerializeObject(dict);
         }
@@ -31,7 +31,7 @@ namespace SharpBoxes.DataStruct
         /// <typeparam name="TValue">值的类型</typeparam>
         /// <param name="json">Json字符串</param>
         /// <returns>字典</returns>
-        public static Dictionary<TKey, TValue> JsonToDict<TKey, TValue>(string json)
+        public static Dictionary<TKey, TValue> JsonToDict<TKey, TValue>(this string json)
         {
             return JsonConvert.DeserializeObject<Dictionary<TKey, TValue>>(json);
         }
@@ -42,7 +42,7 @@ namespace SharpBoxes.DataStruct
         /// <typeparam name="T">对象类型</typeparam>
         /// <param name="t">对象</param>
         /// <returns>复制的对象</returns>
-        public static T CloneByJson<T>(T t)
+        public static T CloneByJson<T>(this T t)
         {
             return JsonConvert.DeserializeObject<T>(
                 JsonConvert.SerializeObject(
@@ -61,57 +61,99 @@ namespace SharpBoxes.DataStruct
             );
         }
 
-        /// <summary>
-        /// 将列表转换为数据表
-        /// </summary>
-        /// <typeparam name="T">列表中的对象类型</typeparam>
-        /// <param name="datas">列表</param>
-        /// <returns>数据表</returns>
-        public static DataTable ToDataTable<T>(this List<T> datas)
-            where T : class
+        public static DataTable ListToDataTable<T>(List<T> datas, bool isUseDisplayName = false)
         {
             DataTable dt = new DataTable();
-            PropertyInfo[] properties = typeof(T).GetProperties();
-            foreach (PropertyInfo pi in properties)
+            var propertys = typeof(T).GetProperties();
+            foreach (var p in propertys)
             {
-                dt.Columns.Add(pi.Name, pi.PropertyType);
+                if (isUseDisplayName)
+                {
+                    var attrs = p.GetCustomAttributes(
+                        typeof(System.ComponentModel.DisplayNameAttribute),
+                        false
+                    );
+                    if (attrs.Count() > 0)
+                    {
+                        var attr = attrs[0] as System.ComponentModel.DisplayNameAttribute;
+                        dt.Columns.Add(attr.DisplayName, p.PropertyType);
+                    }
+                    else
+                    {
+                        dt.Columns.Add(p.Name, p.PropertyType);
+                    }
+                }
+                else
+                {
+                    dt.Columns.Add(p.Name, p.PropertyType);
+                }
             }
-            foreach (T data in datas)
+            foreach (var d in datas)
             {
                 DataRow dr = dt.NewRow();
-                foreach (PropertyInfo pi in properties)
+                foreach (var p in propertys)
                 {
-                    dr[pi.Name] = pi.GetValue(data, null);
+                    dr[p.Name] = p.GetValue(d);
                 }
                 dt.Rows.Add(dr);
             }
             return dt;
         }
 
-        /// <summary>
-        /// 将数据表转换为列表
-        /// </summary>
-        /// <typeparam name="T">列表中的对象类型</typeparam>
-        /// <param name="dt">数据表</param>
-        /// <returns>列表</returns>
-        public static List<T> ToList<T>(this DataTable dt)
-            where T : class, new()
+        public static List<T> DataTableToList<T>(this DataTable dt, bool isUseDisplayName = false)
         {
-            List<T> datas = new List<T>();
-            PropertyInfo[] properties = typeof(T).GetProperties();
-            foreach (DataRow dr in dt.Rows)
+            List<T> list = new List<T>();
+            var propertys = typeof(T).GetProperties();
+            foreach (DataRow item in dt.Rows)
             {
-                T data = new T();
-                foreach (PropertyInfo pi in properties)
+                T t = Activator.CreateInstance<T>();
+                foreach (var p in propertys)
                 {
-                    if (dt.Columns.Contains(pi.Name))
+                    if (isUseDisplayName)
                     {
-                        pi.SetValue(data, dr[pi.Name], null);
+                        var attrs = p.GetCustomAttributes(
+                            typeof(System.ComponentModel.DisplayNameAttribute),
+                            false
+                        );
+                        if (attrs.Count() > 0)
+                        {
+                            var attr = attrs[0] as System.ComponentModel.DisplayNameAttribute;
+                            p.SetValue(
+                                t,
+                                Convert.ChangeType(item[attr.DisplayName], p.PropertyType)
+                            );
+                        }
+                        else
+                        {
+                            p.SetValue(t, Convert.ChangeType(item[p.Name], p.PropertyType));
+                        }
+                    }
+                    else
+                    {
+                        p.SetValue(t, Convert.ChangeType(item[p.Name], p.PropertyType));
                     }
                 }
-                datas.Add(data);
+                list.Add(t);
             }
-            return datas;
+            return list;
+        }
+
+        /// <summary>
+        /// 查找所有符合条件的下标
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="values"></param>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public static List<int> FindAllIndex<T>(this List<T> values, Predicate<T> predicate)
+        {
+            var indexes = new List<int>();
+            for (int i = 0; i < values.Count; i++)
+            {
+                if (predicate(values[i]))
+                    indexes.Add(i);
+            }
+            return indexes;
         }
 
         /// <summary>

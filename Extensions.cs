@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SharpBoxes
 {
@@ -58,6 +59,26 @@ namespace SharpBoxes
         public static float ToFloat(this string str)
         {
             return Convert.ToSingle(str);
+        }
+
+        /// <summary>
+        /// 将一个字符串转换为字节数组
+        /// </summary>
+        /// <param name="text">待转换的字符串</param>
+        /// <returns>字节数组，其中包含输入字符串的编码数据</returns>
+        public static byte[] StringToBytes(string text)
+        {
+            return Encoding.UTF8.GetBytes(text);
+        }
+
+        /// <summary>
+        /// 将一个字节数组转换为字符串
+        /// </summary>
+        /// <param name="bytes">待转换的字节数组</param>
+        /// <returns>字符串，其中包含输入字节数组的编码数据</returns>
+        public static string BytesToString(byte[] bytes)
+        {
+            return Encoding.UTF8.GetString(bytes);
         }
 
         #endregion

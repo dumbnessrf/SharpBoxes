@@ -15,7 +15,10 @@ namespace SharpBoxes.CsvServices
         public static IEnumerable<CsvDataBase> Append<T>(this IEnumerable<CsvDataBase> datas, T t)
             where T : CsvDataBase
         {
-            return datas.Append(t);
+            CsvDataBase csvDataBase = datas.Last();
+            IEnumerable<CsvDataBase> second = csvDataBase.Append(t);
+
+            return datas.Take(datas.Count() - 1).Concat(second);
         }
 
         #region Blank

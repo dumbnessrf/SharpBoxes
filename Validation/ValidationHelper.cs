@@ -67,9 +67,13 @@ namespace SharpBoxes.Validation
         )
             where T : struct, IComparable<T>, IComparable
         {
+            message = "Validate OK";
             var isLess = argument.CompareTo(limit) < 0;
-            message =
-                $"{argumentExpression} ({argument}) must be less than {limitExpression} ({limit}).";
+            if (isLess is false)
+            {
+                message =
+                    $"{argumentExpression} ({argument}) must be less than {limitExpression} ({limit}).";
+            }
             return isLess;
         }
 
@@ -110,9 +114,13 @@ namespace SharpBoxes.Validation
         )
             where T : struct, IComparable<T>, IComparable
         {
+            message = "Validate OK";
             var isMore = argument.CompareTo(limit) > 0;
-            message =
-                $"{argumentExpression} ({argument}) must be more than {limitExpression} ({limit}).";
+            if (isMore is false)
+            {
+                message =
+                    $"{argumentExpression} ({argument}) must be more than {limitExpression} ({limit}).";
+            }
             return isMore;
         }
 
@@ -164,14 +172,22 @@ namespace SharpBoxes.Validation
         )
             where T : struct, IComparable<T>, IComparable
         {
+            message = "Validate OK";
             var isLow = argument.CompareTo(low) < 0;
-            message =
-                $"{argumentExpression} ({argument}) cannot be less than {lowExpression} ({low}).";
+
             if (isLow)
+            {
+                message =
+                    $"{argumentExpression} ({argument}) cannot be less than {lowExpression} ({low}).";
                 return false;
+            }
             var isHigh = argument.CompareTo(high) > 0;
-            message =
-                $"{argumentExpression} ({argument}) cannot be greater than {highExpression} ({high}).";
+            if (isHigh)
+            {
+                message =
+                    $"{argumentExpression} ({argument}) cannot be greater than {highExpression} ({high}).";
+            }
+
             return !isHigh;
         }
 
@@ -234,8 +250,14 @@ namespace SharpBoxes.Validation
             [CallerArgumentExpression("argument")] string argumentExpression = null
         )
         {
-            message = $"the array {argumentExpression} length == 0!";
-            return argument.Length != 0;
+            message = "Validate OK";
+
+            bool v = argument.Length != 0;
+            if (v is false)
+            {
+                message = $"the array {argumentExpression} length == 0!";
+            }
+            return v;
         }
 
         /// <summary>
@@ -266,8 +288,14 @@ namespace SharpBoxes.Validation
             [CallerArgumentExpression("argument")] string argumentExpression = null
         )
         {
-            message = $"the collection {argumentExpression} count == 0!";
-            return argument.Count != 0;
+            message = "Validate OK";
+
+            bool v = argument.Count != 0;
+            if (v is false)
+            {
+                message = $"the collection {argumentExpression} count == 0!";
+            }
+            return v;
         }
     }
 }

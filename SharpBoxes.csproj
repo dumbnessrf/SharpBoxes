@@ -20,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\VX\VX2_Nebula0428\bin\x64\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -35,13 +35,37 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.4.2.13, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>packages\SharpZipLib.1.4.2\lib\netstandard2.0\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.CodeDom, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.CodeDom.8.0.0\lib\net462\System.CodeDom.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -53,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache\CacheHelper.cs" />
+    <Compile Include="Comparer\IgnoreLowerCaseAndUpperCaseStringEqualityComparer.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\BrushToColorConverter.cs" />
     <Compile Include="Converters\ColorToBrushConverter.cs" />
@@ -62,6 +87,11 @@
     <Compile Include="CSV\CsvDataNormal.cs" />
     <Compile Include="CSV\CsvOprHelper.cs" />
     <Compile Include="CSV\CsvServiceExtensions.cs" />
+    <Compile Include="Helpers\FastDateTime.cs" />
+    <Compile Include="Helpers\FolderDeleteService.cs" />
+    <Compile Include="Helpers\IOHelper.cs" />
+    <Compile Include="Helpers\XMLHelper.cs" />
+    <Compile Include="Helpers\ZipHelper.cs" />
     <Compile Include="MarkupExtensions\EnumBindingMarkupExtensions.cs" />
     <Compile Include="Converters\StringToSolidBrushConverter.cs" />
     <Compile Include="DataStruct\Helpers.cs" />
@@ -74,7 +104,9 @@
     <Compile Include="NameSpaces\Record.cs" />
     <Compile Include="NameSpaces\RequiredMember.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflection\ClassHelper.cs" />
     <Compile Include="Reflection\EventHelper.cs" />
+    <Compile Include="Helpers\SystemHelpers.cs" />
     <Compile Include="Validation\FormatValidationHelper.cs" />
     <Compile Include="Validation\ValidationHelper.cs" />
     <Compile Include="WPFHelpers\Command\ActionCommand.cs" />
@@ -92,6 +124,7 @@
     </Compile>
     <Compile Include="WPFHelpers\Dialogs\InputDialogViewModel.cs" />
     <Compile Include="WPFHelpers\Dialogs\MessageBoxes.cs" />
+    <Compile Include="WPFHelpers\KeyBindHelper.cs" />
     <Compile Include="WPFHelpers\Messenger\DefaultParams.cs" />
     <Compile Include="WPFHelpers\Messenger\Messenger.cs" />
     <Compile Include="WPFHelpers\Navigation\INavigateService.cs" />
@@ -100,6 +133,8 @@
     <Compile Include="WPFHelpers\Navigation\NavigateStore.cs" />
     <Compile Include="WPFHelpers\Navigation\NavigateWithParameterService.cs" />
     <Compile Include="WPFHelpers\Navigation\NavigateWithParameterStore.cs" />
+    <Compile Include="WPFHelpers\Progress\CustomProgessBody.cs" />
+    <Compile Include="WPFHelpers\Progress\ProgessFacilities.cs" />
     <Compile Include="WPFHelpers\UserControls\BindablePasswordBox.xaml.cs">
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
@@ -135,11 +170,15 @@
     <Resource Include="Images\info.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
+    <Content Include=".assets\img.png" />
+    <Content Include=".assets\img2.png" />
     <Content Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="readme.en.md" />
+    <Content Include="readme.zh.assets\image-20240601120004160.png" />
     <Content Include="readme.zh.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

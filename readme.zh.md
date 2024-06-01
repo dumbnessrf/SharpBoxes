@@ -14,9 +14,12 @@
     - [ViewModelBase](#viewmodelbase)
     - [事件反射助手](#事件反射助手)
     - [自定义输入对话框](#自定义输入对话框)
-    - [BindablePasswordBox](#bindablepasswordbox)
-    - [HighlightTextBlock](#highlighttextblock)
+    - [可绑定的密码框](#可绑定的密码框)
+    - [高亮文本块](#高亮文本块)
     - [WPF中的转换器](#wpf中的转换器)
+    - [Progress进度汇报及加载](#Progress进度汇报及加载)
+    - [设置属性的Category,DisplayName,Description](#设置属性的Category_DisplayName_Description)
+    - [CSV模块化集成](#CSV模块化集成)
 
 
 ## 说明
@@ -293,9 +296,9 @@ C#中,你可以使用`EventReflectionHelper`轻松地反射事件。
 ```csharp
 public interface INotifyValueChanged
 {
-    event EventHandler&lt;NotifyValueChangedEventArgs&gt; OnNotifyValueChanged;
+    event EventHandler<NotifyValueChangedEventArgs> OnNotifyValueChanged;
 }
-var invokeMethod = instance.GetEventHandlerRaiseMethods("OnNotifyValueChanged", typeof(EventHandler&lt;NotifyValueChangedEventArgs&gt;)).FirstOrDefault();
+var invokeMethod = instance.GetEventHandlerRaiseMethods("OnNotifyValueChanged", typeof(EventHandler<NotifyValueChangedEventArgs>)).FirstOrDefault();
 //invokeMethod.Invoke(this, new object[] { null, myEventArgs });
 invokeMethod.Method?.Invoke(
 invokeMethod.FieldValue,
@@ -365,3 +368,122 @@ xmlns:userControls="clr-namespace:SharpBoxes.WPFHelpers.UserControls;assembly=Sh
 * `ColorToBrushConverter`
 * `StringToSolidColorBrushConverter`
 
+### Progress进度汇报及加载
+用于进度报告功能，该功能可以有效解决进度条与UI主线程之间使用不当产生的假死问题
+```csharp
+var loading = App.Container.Resolve<LoadingWindow>();
+loading.Message = "Loading ...";
+var reporter = ProgessFacilities.Create<CustomProgessBody>(
+    value =>
+    {
+        loading.Message = value.Message;
+    },
+    async () =>
+    {
+        await Task.Delay(500);
+        loading.Visibility = Visibility.Hidden;
+    },
+    100
+);
+loading.Show();
+reporter.Report(new(0, $"Registering ui component..."));
+await ......
+reporter.Report(new(50, $"Showing interface..."));
+await ......
+reporter.Report(new(100, $"Initializing completely!"));
+
+//传递的数据类型可以自定义
+public class CustomProgessBody(double progress, string? message) : IProgessBody
+{
+    public double Progress { get; set; } = progress;
+    public string? Message { get; set; } = message;
+}
+```
+
+### 设置属性的Category_DisplayName_Description
+```csharp
+ClassHelper.SetDisplayName<Student>("Name","名称");
+ClassHelper.SetDescription<Student>("Name","Name的描述");
+ClassHelper.SetCategory<Student>("Name","Name的分类");
+```
+
+### CSV模块化集成
+- [模块介绍]
+  - `CsvDataBase`所有模块的基类，意味着你可以自己自定义实现
+  - `CsvDataBlank`代表添加空行
+  - `CsvDataCustom`代表自定义数据，支持输入`string[]`和`string`,如果字符串中包含逗号，则会被分割成多条数据；如果不包含逗号，则会被当作一条数据。
+  - `CsvDataNormal`代表常规数据，支持输入`类型实例`或`List<类型>实例`，会自动反射得到所有属性，并可以通过DisplayName自定义列名
+
+```csharp
+//模拟数据
+var datas1 = ClassInfo.FakeMany(2);
+var datas2 = Student.FakeMany(10);
+//创建CSV文件并添加数据
+CsvOprHelper
+    .ToCSV(
+        new List<CsvDataBase>()
+        {
+            new CsvDataNormal<ClassInfo>(datas1),
+            new CsvDataBlank(),
+            new CsvDataBlank(),
+            new CsvDataBlank(),
+            new CsvDataNormal<Student>(datas2),
+            new CsvDataBlank(),
+        }
+    )
+    .SaveToFile(@"C:\Users\zheng\Desktop\工作簿1.xlsx");
+//在已有的CSV文件中添加数据
+CsvOprHelper.AppendDataToFile(
+    new List<CsvDataBase>()
+    {
+        new CsvDataCustom("a", "b", "c"),
+        new CsvDataBlank(),
+        new CsvDataCustom(new[] { "e", "f", "g" }),
+        new CsvDataBlank(),
+        new CsvDataCustom("h,i,j"),
+        new CsvDataNormal<ClassInfo>(datas1),
+        new CsvDataBlank(),
+        new CsvDataNormal<Student>(datas2),
+        new CsvDataBlank(),
+    },
+    @"C:\Users\zheng\Desktop\工作簿1.xlsx"
+);
+```
+更方便的写法
+```csharp
+CsvOprHelper.AppendDataToFile(
+    new CsvDataCustom("a", "b", "c")
+        .AddBlank()
+        .AddCustom([ "e", "f", "g" ])
+        .AddBlank()
+        .AddCustom("h,i,j")
+        .AddNormal(datas1)
+        .AddBlank()
+        .AddNormal(datas2)
+        .ToList(),
+    @"C:\Users\zheng\Desktop\工作簿1.xlsx"
+);
+```
+CSV案例类型一览
+```csharp
+public class Student
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public DateTime Birthday { get; set; }
+    public int Age { get; set; }
+    public bool IsMale { get; set; }
+    public string Address { get; set; }
+    public string Phone { get; set; }
+    public string Email { get; set; }
+    public string Remark { get; set; }
+}
+
+public class ClassInfo
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Remark { get; set; }
+}
+```
+![image-20240601120004160](readme.zh.assets/image-20240601120004160.png)

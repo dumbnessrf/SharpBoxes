@@ -16,7 +16,7 @@ Such as the general cache static operation class, the commonly used Wpf ValueCon
 Others are some general extension method classes
 
 Orignal Source:
-[SharoBoxes](https://github.com/dumbnessrf/SharpBoxes/tree/main)
+[SharpBoxes](https://github.com/dumbnessrf/SharpBoxes/tree/main)
 
 其他相关工具、扩展
 Other Toolkit:
@@ -25,5 +25,5 @@ Other Toolkit:
 which provided lots of csharp、xaml useful code snippets Like full property statement with OnPropertyChanged, auto surround with Task.Run(()=>{ });...
 # Install
 ```shell
-Install-Package SharoBoxes
+Install-Package SharpBoxes
 ```

@@ -35,6 +35,30 @@ public static class ClassHelper
         field?.SetValue(attribute, newDisplayName);
     }
 
+        /// <summary>
+        /// 设置指定类型中指定属性的是否可见。
+        /// </summary>
+        /// <typeparam name="T">属性所属的类型。</typeparam>
+        /// <param name="propertyName">要设置显示名称的属性的名称。</param>
+        /// <param name="newDisplayName">要设置的新显示名称。</param>
+        public static void SetBrowsable<T>(string propertyName, bool newBrowsableName)
+        {
+            // 获取指定类型中指定属性的 PropertyDescriptor
+            PropertyDescriptor descriptor = TypeDescriptor.GetProperties(typeof(T))[propertyName];
+
+            // 获取属性的 DisplayNameAttribute
+            BrowsableAttribute  attribute =
+                descriptor.Attributes[typeof(BrowsableAttribute)] as BrowsableAttribute;
+
+            // 获取 DisplayNameAttribute 的私有字段 "browsable"
+            FieldInfo field = attribute
+                ?.GetType()
+                .GetField("browsable", BindingFlags.NonPublic | BindingFlags.Instance);
+
+            // 将 "_displayName" 字段的值设置为新的显示名称
+            field?.SetValue(attribute, newBrowsableName);
+        }
+    
     /// <summary>
     /// 设置指定类型中指定属性的描述。
     /// </summary>

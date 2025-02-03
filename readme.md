@@ -1,3 +1,5 @@
+# 注意该库已迁移至新库，后续更新将在库[SharpBoxesCore](https://github.com/dumbnessrf/SharpBoxesCore)进行更新
+
 - Click Down Below to switch language
 - 点击下方切换语言
 
